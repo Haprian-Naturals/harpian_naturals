@@ -40,15 +40,17 @@ const ProductSection = () => {
     <div className="py-10 bg-white">
       {/* Heading and Navigation */}
       <div className="max-w-7xl mt-6 mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center  mb-4">JUST FOR YOU</h2>
+        <h2 className="text-3xl text-[#24349c] font-bold text-center  mb-4">
+          JUST FOR YOU
+        </h2>
         <div className="flex justify-center space-x-6 mb-8">
-          <button className="text-gray-700 font-semibold hover:text-black">
+          <button className="text-[#2b3db8] font-semibold hover:text-black">
             Best Sellers
           </button>
-          <button className="text-gray-700 font-semibold hover:text-black">
+          <button className="text-[#2b3db8] font-semibold hover:text-black">
             New Arrivals
           </button>
-          <button className="text-gray-700 font-semibold hover:text-black">
+          <button className="text-[#2b3db8] font-semibold hover:text-black">
             Sale
           </button>
         </div>
@@ -81,12 +83,12 @@ const ProductSection = () => {
                 </div>
                 <a
                   href=""
-                  className="text-xs font-semibold text-purple-600 underline hover:text-purple-800 mb-3 block"
+                  className="text-xs font-semibold text-[#24349c] underline hover:text-purple-800 mb-3 block"
                 >
                   QUICK VIEW
                 </a>
 
-                <button className=" py-4 w-full text-xs font-semibold text-purple-600 border border-purple-600 py-2 hover:bg-purple-700 hover:text-white">
+                <button className=" py-4 w-full text-xs font-semibold text-[#24349c] border border-[#24349c] py-2 hover:bg-[#24349c] hover:text-white">
                   ADD TO CART
                 </button>
               </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "./Logo";
+import Logo from "./HaprianLogo";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -10,7 +10,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Left Section: Logo, Address, Contact, Social Icons */}
           <div className="flex flex-col space-y-4">
-            <Logo />
+            <div>
+              <Logo/>
+            </div>
+            
             <p className="text-sm text-gray-600">
               Johar Town, Lahore
               <br />
@@ -107,10 +110,18 @@ const Footer = () => {
           {/* Middle-Right Section: Quick Shop Links */}
           <div className="flex flex-col space-y-2">
             <h3 className="text-lg font-semibold text-gray-800">Quick Shop</h3>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">Hair Care</a>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">Skin Care</a>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">Serums</a>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">Sale</a>
+            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+              Hair Care
+            </a>
+            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+              Skin Care
+            </a>
+            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+              Serums
+            </a>
+            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+              Sale
+            </a>
             {/* <Link
               to="/hair-care"
               className="text-sm text-gray-600 hover:text-purple-600"

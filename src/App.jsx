@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Home from "./Pages/Home";
 import Shop from "./Pages/Shop";
 import Footer from "./components/Footer";
+import Contact from "./Pages/Contact"
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
 
         {/* Shop page at "/shop" */}
         <Route path="/shop" element={<Shop />} />
+        <Route path="/contact" element={<Contact />} />
+        
       </Routes>
 
       <Footer/>

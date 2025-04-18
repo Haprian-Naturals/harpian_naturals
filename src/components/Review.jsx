@@ -68,6 +68,8 @@ const ReviewSection = () => {
 
   return (
     <div ref={sectionRef} className="py-10 bg-white">
+      <h2 className="text-3xl font-light text-center">How You Function</h2>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h3 className="text-6xl font-light text-center mb-8">
           Real Repair Stories, Real Joy
