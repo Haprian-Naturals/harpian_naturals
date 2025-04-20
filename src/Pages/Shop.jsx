@@ -203,9 +203,7 @@ const Shop = () => {
             </p>
           </div>
 
-          <button className="mt-4 bg-[#8A9A5B] text-white text-lg font-semibold py-2 px-4 rounded hover:bg-[#6B7A4A] transition">
-            Let Me Help You
-          </button>
+          
         </div>
 
         {/* Main Content */}
@@ -218,7 +216,7 @@ const Shop = () => {
                   isGridView ? "text-[#8A9A5B]" : ""
                 }`}
               >
-                Grid
+                <MdGridView/>
               </button>
               <button
                 onClick={() => toggleView("list")}
@@ -226,7 +224,7 @@ const Shop = () => {
                   !isGridView ? "text-[#8A9A5B]" : ""
                 }`}
               >
-                List
+                <MdList/>
               </button>
             </div>
             <p className="text-[#333333]">
