@@ -1,15 +1,17 @@
-import React from "react";
-import product1 from "../assets/treat.png"; // Adjust paths based on your folder structure
+import React, { useState } from "react";
+import product1 from "../assets/treat.png";
 import product2 from "../assets/ist.png";
 import product3 from "../assets/cast.png";
 import product4 from "../assets/rose.png";
 
-const ProductSection = () => {
+const Products = () => {
+  const [activeTab, setActiveTab] = useState("Best Sellers");
+
   const products = [
     {
-      image: product1,
+      image: product2,
       brand: "REDO HAIRCARE",
-      name: "Genie in a Bottle Miracle Spray 250ml",
+      name: "Genie in a Bottle Miracle Spray 250ml Miracle",
       price: "$24.95",
       rating: 58,
     },
@@ -30,66 +32,92 @@ const ProductSection = () => {
     {
       image: product4,
       brand: "K18",
-      name: "Leave-In Molecular Repair Mask 50ml",
+      name: "Leave-In Molecular Repair Mask 50ml Miracle",
       price: "$99.95",
       rating: 793,
     },
   ];
 
+  const tabs = ["Best Sellers", "New Arrivals", "Sale"];
+
   return (
-    <div className="py-10 bg-white">
-      {/* Heading and Navigation */}
-      <div className="max-w-7xl mt-6 mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl text-[#24349c] font-bold text-center  mb-4">
-          JUST FOR YOU
+    <div className="py-12 bg-[#F5F7F5]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <h2 className="text-3xl text-[#1A3C34] font-bold text-center uppercase mb-6 font-['Playfair_Display']">
+          Just For You
         </h2>
-        <div className="flex justify-center space-x-6 mb-8">
-          <button className="text-[#2b3db8] font-semibold hover:text-black">
-            Best Sellers
-          </button>
-          <button className="text-[#2b3db8] font-semibold hover:text-black">
-            New Arrivals
-          </button>
-          <button className="text-[#2b3db8] font-semibold hover:text-black">
-            Sale
-          </button>
+
+        {/* Tabs */}
+        <div className="flex justify-center space-x-6 mb-10">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`text-sm font-medium uppercase ${
+                activeTab === tab
+                  ? "text-[#1A3C34] border-b-2 border-[#8CC63F]"
+                  : "text-gray-500 hover:text-[#1A3C34] transition-colors duration-300"
+              } pb-2`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {/* Product Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product, index) => (
-            <div key={index} className="flex flex-col">
-              <div className="relative mb-4 border border-gray-300">
+            <div
+              key={index}
+              className="flex flex-col bg-white rounded-md shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              {/* Image */}
+              <div className="relative overflow-hidden p-4">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-55 object-contain"
+                  className="w-full h-48 object-contain bg-[#D4E4D8] transition-transform duration-300 hover:scale-105"
                 />
               </div>
-              <div className="w-full text-left flex flex-col h-50 items mx-3 justify-evenly">
-                <p className="text-xs text-gray-600 uppercase tracking-wide">
+              {/* Product Info */}
+              <div className="px-4 pb-5 flex flex-col items-center flex-grow">
+                <p className="text-xs text-[#8CC63F] uppercase tracking-wide mb-1">
                   {product.brand}
                 </p>
-                <h3 className="text-sm font-medium text-gray-800 leading-tight mb-1">
+                <h3 className="text-base font-medium text-[#1A3C34] text-center leading-tight mb-2">
                   {product.name}
                 </h3>
-                <p className="text-sm font-semibold text-gray-900 mb-1">
-                  {product.price}
-                </p>
-                <div className="flex items-center mb-3">
-                  <span className="text-yellow-400 text-sm">★★★★★</span>
+                <div className="flex items-center mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i < Math.floor(product.rating / 10)
+                          ? "text-[#8CC63F]"
+                          : "text-gray-300"
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.691h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.84-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.27 9.394c-.784-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.691l1.286-3.966z" />
+                    </svg>
+                  ))}
                   <span className="text-xs text-gray-500 ml-1">
                     ({product.rating})
                   </span>
                 </div>
+                <p className="text-sm font-semibold text-gray-800 mb-3">
+                  {product.price}
+                </p>
                 <a
-                  href=""
-                  className="text-xs font-semibold text-[#24349c] underline hover:text-purple-800 mb-3 block"
+                  href="#"
+                  className="text-sm text-[#1A3C34] hover:text-[#8CC63F] hover:underline mb-3 block"
                 >
-                  QUICK VIEW
+                  Quick View
                 </a>
-
-                <button className=" py-4 w-full text-xs font-semibold text-[#24349c] border border-[#24349c] py-2 hover:bg-[#24349c] hover:text-white">
-                  ADD TO CART
+                <button className="w-full py-2 text-sm font-medium text-white bg-[#003087] rounded-md hover:bg-[#4A6BFF] transition-colors duration-300">
+                  Add to Cart
                 </button>
               </div>
             </div>
@@ -100,4 +128,4 @@ const ProductSection = () => {
   );
 };
 
-export default ProductSection;
+export default Products;

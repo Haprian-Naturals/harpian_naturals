@@ -2,40 +2,34 @@ import React, { useEffect, useRef } from "react";
 import product1 from "../assets/cast.png";
 import product2 from "../assets/rose.png";
 import product3 from "../assets/ist.png";
-import vid1 from '../videos/washing_video.mp4'
-import vid2 from '../videos/oil_treatment.mp4'
-import vid3 from '../videos/dirty_hair.mp4'
-
-// Placeholder video URL (replace with your actual video imports)
-const placeholderVideo =
-  "https://www.instagram.com/haprian_naturals/reel/DIFCIkaiWw1/";
+import vid1 from "../videos/washing_video.mp4";
+import vid2 from "../videos/oil_treatment.mp4";
+import vid3 from "../videos/dirty_hair.mp4";
 
 const ReviewSection = () => {
   const reviews = [
     {
       name: "Emily",
-      video: vid1, // Replace with actual video import, e.g., import review1 from '../videos/review1.mp4';
+      video: vid1,
       productImage: product1,
-      comment:
-        '"You can visibly see a difference after just one use!"',
+      comment: "You can visibly see a difference after just one use!",
     },
     {
       name: "Sophie",
-      video: vid2, // Replace with actual video import
+      video: vid2,
       productImage: product2,
       comment:
-        '"It adds strength, hydration, frizz-control and most important to me it"',
+        "It adds strength, hydration, frizz-control and most important to me it",
     },
     {
       name: "Ava",
-      video: vid3, // Replace with actual video import
+      video: vid3,
       productImage: product3,
       comment:
-        '"I’ve seen a huge improvement in my curls, including less breakage"',
+        "I’ve seen a huge improvement in my curls, including less breakage",
     },
   ];
 
-  // Ref to track the section
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -43,85 +37,86 @@ const ReviewSection = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // When the section is in view, play all videos
             const videos = sectionRef.current.querySelectorAll("video");
             videos.forEach((video) => {
               video.play().catch((error) => {
                 console.log("Video playback failed:", error);
               });
             });
-            // Stop observing once videos start playing
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is in view
+      { threshold: 0.5 }
     );
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
 
-    // Cleanup observer on component unmount
     return () => observer.disconnect();
   }, []);
 
   return (
     <div ref={sectionRef} className="py-10 bg-white">
-      <h2 className="text-3xl font-light text-center">How You Function</h2>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h3 className="text-6xl font-light text-center mb-8">
+        {/* Small Heading */}
+        <h2 className="text-sm font-light text-center uppercase text-[#8CC63F] mb-2 font-['Playfair_Display']">
+          How You Function
+        </h2>
+        {/* Main Heading */}
+        <h3 className="text-4xl md:text-5xl font-light text-center text-[#1A3C34] mb-8 tracking-wide font-['Playfair_Display']">
           Real Repair Stories, Real Joy
         </h3>
+        {/* Grid of Video Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {reviews.map((review, index) => (
-            <div key={index} className="flex flex-col items-center">
+            <div
+              key={index}
+              className="flex flex-col items-center hover:shadow-lg transition-shadow duration-300"
+            >
               {/* Video */}
-              <div className="relative mb-4 w-94">
+              <div className="relative w-full">
                 <video
-                  className="w-full h-100 object-cover" // Increased height to h-80
+                  className="w-full h-80 object-cover"
                   muted
                   loop
                   playsInline
                   style={{
                     border: "none",
-                    borderTopLeftRadius: "6px",
-                    borderTopRightRadius: "6px",
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
                   }}
                 >
                   <source src={review.video} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                {/* Name Overlay */}
-                <div className="absolute top-2 left-2  bg-opacity-50 text-white text-sm font-semibold px-2 py-1">
+                {/* Username Overlay */}
+                <div className="absolute top-2 left-2 bg-black/50 text-white text-sm font-semibold px-2 py-1 rounded">
                   @{review.name}
                 </div>
-                {/* Product Image at Bottom Left */}
-                {/* <img
+              </div>
+              {/* Colored Bar with Product Image, Comment, and Name */}
+              <div className="w-full bg-[#D4E4D8] flex items-center justify-between p-4">
+                {/* Product Image */}
+                <img
                   src={review.productImage}
                   alt={review.name}
-                  className="absolute top-8 left-2 w-16 h-20 object-contain" // Smaller size, positioned at bottom left
-                /> */}
-
-                {/* Comment Below */}
-                <div className="flex w-full items-center justify-between bg-purple-200">
-                  <img
-                    src={review.productImage}
-                    alt={review.name}
-                    style={{
-                      border: "none",
-                      borderBottomLeftRadius: "10px",
-                      borderBottomRightRadius: "6px",
-                    }}
-                    className=" left-2 w-36 h-39 object-contain" // Smaller size, positioned at bottom left
-                  />
-                  <div>
-                    <p className="text-semibold text-gray-600 text-left italic w-4/5">
-                      {review.comment}
-                    </p>
-                    <p>{review.name}</p>
-                  </div>
+                  className="w-16 h-20 object-contain relative -mt-12"
+                  style={{
+                    border: "none",
+                    borderBottomLeftRadius: "10px",
+                    borderBottomRightRadius: "10px",
+                  }}
+                />
+                {/* Comment and Name */}
+                <div className="flex-1 ml-4">
+                  <p className="text-sm italic text-gray-600 mb-1">
+                    "{review.comment}"
+                  </p>
+                  <p className="text-sm font-bold text-[#1A3C34] text-right">
+                    {review.name.toUpperCase()}
+                  </p>
                 </div>
               </div>
             </div>

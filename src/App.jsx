@@ -1,31 +1,28 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Router } from "react-router-dom";
 import Nav from "./components/Nav";
-// import Hero from "./components/Hero"
-// import Products from "./components/Products"
 import Home from "./Pages/Home";
 import Shop from "./Pages/Shop";
 import Footer from "./components/Footer";
-import Contact from "./Pages/Contact"
+import Contact from "./Pages/Contact";
+import Sale from "./Pages/Sale";
 
+// Main app component
 function App() {
   return (
-    <>
+    <div>
       <Nav />
-      {/* <Hero/>
-      <Products/> */}
-
-      <Routes>
-        {/* Home page at "/" */}
-        <Route path="/" element={<Home />} />
-
-        {/* Shop page at "/shop" */}
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/contact" element={<Contact />} />
-        
-      </Routes>
-
+      {/* Wrap content in a <main> tag and apply padding-top */}
+      <main style={{ paddingTop: "var(--navbar-height, 5rem)" }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/sale" element={<Sale />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* Add other routes as needed */}
+        </Routes>
+      </main>
       <Footer/>
-    </>
+    </div>
   );
 }
 
