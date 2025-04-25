@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import "../styles/HeroSection.css"; // Import the new CSS file
 import group from "../assets/group.jpg";
 import products from "../assets/products.png";
 import ad from "../assets/ad.jpg";
-import hair from "../assets/hair_essentials.png"
+import hair from "../assets/hair_essentials.png";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,14 +12,13 @@ const HeroSection = () => {
       title: "Ditch The Tangles",
       subtitle:
         "Free NAK Hair Hydrate Detangle Mist 100ml with all NAK Hair orders over $30*",
-      image: group, // Replace with your image
+      image: group,
       badge: "AVAILABLE ONLINE & IN STORE",
-      
     },
     {
-      title: "Free Christophne Robine",
+      title: "Free Christophe Robin",
       subtitle: "Across all OZ Hair and Beauty Essentials*",
-      image: products, // Replace with your image
+      image: products,
       badge: "AVAILABLE ONLINE & IN STORE",
       limitedText:
         "*Discount automatically applied at checkout, to the product of lowest value.",
@@ -26,23 +26,21 @@ const HeroSection = () => {
     {
       title: "Smooth & Sleek",
       subtitle: "Free NAK Hair Smooth Cream 150ml with orders over $35*",
-      image: ad, // Replace with your image
-      
+      image: ad,
     },
     {
       title: "Volume Boost",
       subtitle: "Free NAK Hair Volume Spray 200ml with orders over $45*",
-      image: hair, // Replace with your image
+      image: hair,
       badge: "IN STORE ONLY",
       limitedText: "Limited stock!",
     },
   ];
 
-  // Automatic carousel
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -50,7 +48,6 @@ const HeroSection = () => {
     setCurrentSlide(index);
   };
 
-  // Determine if the current slide is odd-numbered to apply the background image to the section
   const isOddSlide = currentSlide % 2 === 0;
   const sectionBackground = isOddSlide
     ? {
@@ -58,9 +55,13 @@ const HeroSection = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
-        bottom: "10px"
+        bottom: "10px",
       }
-    : { backgroundColor: "#D3D3D3",bottom:"10px",position: "relative" };
+    : {
+        backgroundColor: "#D3D3D3",
+        bottom: "10px",
+        position: "relative",
+      };
 
   return (
     <section
@@ -76,12 +77,9 @@ const HeroSection = () => {
             }`}
           >
             {index % 2 === 0 ? (
-              // Layout 1: Image as background (applied to section), text centered (for odd-numbered slides: 0, 2)
+              // Layout 1: Image as background, text centered (odd-numbered slides: 0, 2)
               <>
-                {/* Overlay for text readability */}
                 <div className="absolute flex flex-col justify-end inset-0 bg-black opacity-50"></div>
-
-                {/* Text Content */}
                 <div className="relative text-center z-10">
                   {slide.badge && (
                     <span className="inline-block bg-white text-[#333333] text-xs font-semibold px-3 py-1 rounded-full mb-4">
@@ -99,17 +97,13 @@ const HeroSection = () => {
                     SHOP NOW
                   </a>
                 </div>
-
-                {/* Limited Text */}
                 <span className="absolute top-4 right-4 text-white text-sm font-semibold transform rotate-45 z-10">
                   {slide.limitedText}
                 </span>
               </>
             ) : (
-              // Layout 2: Image on right, text on left, centered on page (for even-numbered slides: 1, 3)
-              // Layout 2: Improved styling for image-right, text-left slides
-              <div className="flex flex-col lg:flex-row items-center justify-center min-h-[75vh] px-4 bg-[#F9F9F5]">
-                {/* Left: Text Content */}
+              // Layout 2: Image on right, text on left (even-numbered slides: 1, 3)
+              <div className="even-slide flex flex-col lg:flex-row items-center justify-center min-h-[55vh] px-4 bg-[#F9F9F5]">
                 <div className="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0 px-4">
                   {slide.badge && (
                     <span className="inline-block bg-[#E0F2E9] text-[#007F5F] text-sm font-medium px-4 py-2 rounded-full mb-6 tracking-wide shadow-sm">
@@ -129,8 +123,6 @@ const HeroSection = () => {
                     SHOP NOW
                   </a>
                 </div>
-
-                {/* Right: Image */}
                 <div className="lg:w-1/2 flex justify-center px-4">
                   <img
                     src={slide.image}
@@ -147,8 +139,6 @@ const HeroSection = () => {
           </div>
         ))}
       </div>
-
-      {/* Navigation Dots */}
       <div className="flex justify-center mb-6 z-20">
         {slides.map((_, index) => (
           <button

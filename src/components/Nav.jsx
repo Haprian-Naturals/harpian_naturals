@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { User, Heart, ShoppingBag } from "lucide-react";
 import Logo from "./HaprianLogo";
 import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 import { NavLink } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import CartModal from "./CartModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
+  const { totalItems } = useContext(CartContext);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleCartModal = () => setIsCartModalOpen(!isCartModalOpen);
 
   const handleSwitchToSignUp = () => {
     setIsLoginModalOpen(false);
@@ -31,11 +36,10 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="w-full bg-white/70 backdrop-blur-md shadow-md p-3 px-4 md:px-8 fixed top-0 left-0 z-50"
+        className="w-full bg-white/80 backdrop-blur-md shadow-lg p-3 px-4 md:px-8 fixed top-0 left-0 z-50 rounded-b-2xl border-b border-[#E0E0E0]"
         style={{ "--navbar-height": "5rem" }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Left Section: Hamburger and Logo */}
           <div className="flex items-center">
             <div className="flex items-center md:hidden">
               <button
@@ -82,59 +86,27 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Navigation Links (Desktop) */}
           <div className="hidden md:flex items-center space-x-6">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `relative font-medium transition-colors duration-300 ${
-                  isActive
-                    ? "text-[#8CC63F] after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-[#8CC63F]"
-                    : "text-[#333333] hover:text-[#4A6BFF]"
-                }`
-              }
-            >
-              HOME
-            </NavLink>
-            <NavLink
-              to="/shop"
-              className={({ isActive }) =>
-                `relative font-medium transition-colors duration-300 ${
-                  isActive
-                    ? "text-[#8CC63F] after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-[#8CC63F]"
-                    : "text-[#333333] hover:text-[#4A6BFF]"
-                }`
-              }
-            >
-              SHOP
-            </NavLink>
-            <NavLink
-              to="/sale"
-              className={({ isActive }) =>
-                `relative font-medium transition-colors duration-300 ${
-                  isActive
-                    ? "text-[#8CC63F] after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-[#8CC63F]"
-                    : "text-[#333333] hover:text-[#4A6BFF]"
-                }`
-              }
-            >
-              SALE
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                `relative font-medium transition-colors duration-300 ${
-                  isActive
-                    ? "text-[#8CC63F] after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-[#8CC63F]"
-                    : "text-[#333333] hover:text-[#4A6BFF]"
-                }`
-              }
-            >
-              CONTACT
-            </NavLink>
+            {["/", "/shop", "/sale", "/contact"].map((path, idx) => {
+              const labels = ["HOME", "SHOP", "SALE", "CONTACT"];
+              return (
+                <NavLink
+                  key={path}
+                  to={path}
+                  className={({ isActive }) =>
+                    `relative font-[500] text-sm tracking-wide transition-colors duration-300 ${
+                      isActive
+                        ? "text-[#8CC63F] after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-[#8CC63F]"
+                        : "text-[#333333] hover:text-[#8CC63F]"
+                    }`
+                  }
+                >
+                  {labels[idx]}
+                </NavLink>
+              );
+            })}
           </div>
 
-          {/* Right Section: Icons */}
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setIsLoginModalOpen(true)}
@@ -142,31 +114,34 @@ const Navbar = () => {
             >
               <User size={20} />
             </button>
-            <a
-              href="/wishlist"
-              className="text-[#333333] hover:text-[#8CC63F] relative"
+            <NavLink
+              to="/wishlist"
+              className={({ isActive }) =>
+                `p-2 rounded-full relative hover:bg-[#F0F0F0] transition ${
+                  isActive ? "text-[#8CC63F]" : "text-[#333333]"
+                }`
+              }
             >
               <Heart size={20} />
-              <span className="absolute -top-1 -right-1 bg-[#F5F5F5] text-[#333333] text-xs rounded-full w-3 h-3 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-[#8CC63F] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
                 1
               </span>
-            </a>
-            <a
-              href="/cart"
-              className="text-[#333333] hover:text-[#8CC63F] relative"
+            </NavLink>
+            <button
+              onClick={toggleCartModal}
+              className="p-2 rounded-full relative hover:bg-[#F0F0F0] transition cursor-pointer"
             >
-              <ShoppingBag size={20} />
-              <span className="absolute -top-1 -right-1 bg-[#F5F5F5] text-[#333333] text-xs rounded-full w-3 h-3 flex items-center justify-center">
-                0
+              <ShoppingBag size={20} className="text-[#333333]" />
+              <span className="absolute -top-1 -right-1 bg-[#8CC63F] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
+                {totalItems}
               </span>
-            </a>
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Hamburger Menu (Mobile) */}
       <div
-        className={`md:hidden fixed inset-y-0 left-0 w-full bg-white shadow-xl p-4 z-[100] transform transition-transform duration-300 flex flex-col opacity-100 ${
+        className={`md:hidden fixed inset-y-0 left-0 w-full bg-white/95 shadow-xl p-6 z-[100] transform transition-transform duration-300 flex flex-col rounded-b-3xl ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -192,89 +167,20 @@ const Navbar = () => {
           </button>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center space-y-6">
-          <a
-            href="/"
-            className={`font-medium text-xl ${
-              activeLink === "home"
-                ? "text-[#8CC63F]"
-                : "text-[#333333] hover:text-[#4A6BFF]"
-            }`}
-            onClick={() => handleLinkClick("home")}
-          >
-            HOME
-          </a>
-          <div className="relative">
+          {["home", "shop", "sale", "contact"].map((label) => (
             <a
-              href="/shop"
-              className={`font-medium text-xl flex items-center ${
-                activeLink === "shop"
+              key={label}
+              href={`/${label === "home" ? "" : label}`}
+              className={`font-medium text-xl ${
+                activeLink === label
                   ? "text-[#8CC63F]"
                   : "text-[#333333] hover:text-[#4A6BFF]"
-              }`}
-              onClick={() => handleLinkClick("shop")}
+              } border-b border-gray-200 pb-4 w-full text-center`}
+              onClick={() => handleLinkClick(label)}
             >
-              SHOP
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              {label.toUpperCase()}
             </a>
-            <div className="mt-2 space-y-2">
-              <a
-                href="/shop/category1"
-                className={`block text-lg ${
-                  activeLink === "category1"
-                    ? "text-[#8CC63F]"
-                    : "text-[#333333] hover:text-[#4A6BFF]"
-                }`}
-                onClick={() => handleLinkClick("category1")}
-              >
-                Category 1
-              </a>
-              <a
-                href="/shop/category2"
-                className={`block text-lg ${
-                  activeLink === "category2"
-                    ? "text-[#8CC63F]"
-                    : "text-[#333333] hover:text-[#4A6BFF]"
-                }`}
-                onClick={() => handleLinkClick("category2")}
-              >
-                Category 2
-              </a>
-            </div>
-          </div>
-          <a
-            href="/sale"
-            className={`font-medium text-xl ${
-              activeLink === "sale"
-                ? "text-[#8CC63F]"
-                : "text-[#333333] hover:text-[#4A6BFF]"
-            }`}
-            onClick={() => handleLinkClick("sale")}
-          >
-            SALE
-          </a>
-          <a
-            href="/contact"
-            className={`font-medium text-xl ${
-              activeLink === "contact"
-                ? "text-[#8CC63F]"
-                : "text-[#333333] hover:text-[#4A6BFF]"
-            }`}
-            onClick={() => handleLinkClick("contact")}
-          >
-            CONTACT
-          </a>
+          ))}
         </div>
       </div>
 
@@ -288,6 +194,11 @@ const Navbar = () => {
         isOpen={isSignUpModalOpen}
         onClose={() => setIsSignUpModalOpen(false)}
         onSwitchToLogin={handleSwitchToLogin}
+      />
+
+      <CartModal
+        isOpen={isCartModalOpen}
+        onClose={() => setIsCartModalOpen(false)}
       />
     </>
   );

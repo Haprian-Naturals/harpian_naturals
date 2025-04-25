@@ -126,7 +126,7 @@ const Contact = () => {
             <h3 className="text-lg font-semibold text-[#1A3C34] mb-2">
               Opening Hours
             </h3>
-            <p className="text-sm text-gray-600">Mon - Sat: 9am - 11pm</p>
+            <p className="text-sm text-gray-600">Mon - Sat: 9am - 9pm</p>
           </div>
 
           {/* Social Media Icons */}

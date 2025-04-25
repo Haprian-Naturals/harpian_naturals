@@ -5,24 +5,29 @@ import Shop from "./Pages/Shop";
 import Footer from "./components/Footer";
 import Contact from "./Pages/Contact";
 import Sale from "./Pages/Sale";
+import Cart from "./Pages/Cart";
+import { CartProvider } from "./context/CartContext";
 
 // Main app component
 function App() {
   return (
-    <div>
-      <Nav />
-      {/* Wrap content in a <main> tag and apply padding-top */}
-      <main style={{ paddingTop: "var(--navbar-height, 5rem)" }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/sale" element={<Sale />} />
-          <Route path="/contact" element={<Contact />} />
-          {/* Add other routes as needed */}
-        </Routes>
-      </main>
-      <Footer/>
-    </div>
+    <CartProvider>
+      <div>
+        <Nav />
+        {/* Wrap content in a <main> tag and apply padding-top */}
+        <main style={{ paddingTop: "var(--navbar-height, 5rem)" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/sale" element={<Sale />} />
+            <Route path="/contact" element={<Contact />} />
+            {/* Add other routes as needed */}
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </CartProvider>
   );
 }
 

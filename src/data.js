@@ -14,7 +14,15 @@ const productsData = [
     inStock: true,
     type: "Hair Care",
     isPopular: true,
+    rating: 67
   },
+  // {
+  //       image: product3,
+  //       brand: "TYPEBEA G1",
+  //       name: "Overnight Boosting Peptide Serum 100ml",
+  //       price: "$80.00",
+  //       rating: 11,
+  //     },
   {
     id: 2,
     name: "Herbal Hair Fall Protection Shampoo",
@@ -23,6 +31,8 @@ const productsData = [
     inStock: true,
     image: rose,
     type: "Hair Care",
+    rating: 140
+    
   },
   {
     id: 3,
@@ -32,6 +42,7 @@ const productsData = [
     image: neem,
     inStock: false,
     type: "Deals",
+    rating: 200
   },
   {
     id: 4,
@@ -41,6 +52,7 @@ const productsData = [
     inStock: true,
     image: keratin,
     type: "Hair Care",
+    rating: 100
   },
   {
     id: 5,
@@ -50,6 +62,7 @@ const productsData = [
     inStock: true,
     type: "Hair Care",
     image: gel,
+    rating: 50
   },
   {
     id: 6,
@@ -59,6 +72,7 @@ const productsData = [
     inStock: false,
     type: "Deals",
     image: ad,
+    rating: 70
   },
   {
     id: 7,
@@ -68,6 +82,7 @@ const productsData = [
     inStock: true,
     image: ad,
     type: "Hair Care",
+    rating: 120
   },
   {
     id: 8,
@@ -77,6 +92,7 @@ const productsData = [
     inStock: true,
     image: ad,
     type: "Hair Care",
+    rating: 80
   },
   {
     id: 9,
@@ -86,6 +102,7 @@ const productsData = [
     inStock: false,
     image: ad,
     type: "Deals",
+    rating: 60
   },
   {
     id: 10,
@@ -95,6 +112,7 @@ const productsData = [
     inStock: true,
     image: ad,
     type: "Hair Care",
+    rating: 40
   },
   {
     id: 11,
@@ -104,6 +122,7 @@ const productsData = [
     inStock: true,
     image: ad,
     type: "Hair Care",
+    rating: 30
   },
   {
     id: 12,
@@ -113,6 +132,7 @@ const productsData = [
     inStock: false,
     image: ad,
     type: "Deals",
+    rating: 90
   },
   {
     id: 13,
@@ -122,6 +142,7 @@ const productsData = [
     inStock: true,
     image: ad,
     type: "Hair Care",
+    rating: 150
   },
   {
     id: 14,
@@ -131,6 +152,7 @@ const productsData = [
     inStock: true,
     image: ad,
     type: "Hair Care",
+    rating: 150
   },
   {
     id: 15,
@@ -140,6 +162,7 @@ const productsData = [
     inStock: false,
     image: ad,
     type: "Deals",
+    rating: 40
   },
 ];
 

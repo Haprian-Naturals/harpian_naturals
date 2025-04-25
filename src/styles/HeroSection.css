@@ -1,0 +1,44 @@
+/* Default styles (desktop) remain unchanged via your existing code */
+
+/* Mobile-specific styles for even-numbered slides */
+@media only screen and (max-width: 767px) {
+  .even-slide {
+    flex-direction: column !important; /* Stack text and image vertically */
+    padding: 16px !important; /* Reduced padding for mobile */
+    min-height: auto !important; /* Allow height to adjust naturally */
+    text-align: center !important; /* Center text for better mobile appearance */
+  }
+
+  .even-slide > div {
+    width: 100% !important; /* Full width for both text and image containers */
+    padding: 0 !important; /* Remove extra padding */
+    margin-bottom: 16px !important; /* Space between text and image */
+  }
+
+  .even-slide h1 {
+    font-size: 2rem !important; /* Smaller heading for mobile */
+    margin-bottom: 12px !important;
+  }
+
+  .even-slide p {
+    font-size: 1rem !important; /* Smaller subtitle for mobile */
+    margin-bottom: 16px !important;
+  }
+
+  .even-slide img {
+    width: 100% !important; /* Full width image */
+    max-width: 300px !important; /* Cap image size */
+    height: auto !important; /* Maintain aspect ratio */
+    margin: 0 auto !important; /* Center image */
+  }
+
+  .even-slide a {
+    padding: 10px 20px !important; /* Smaller button for mobile */
+    font-size: 0.875rem !important; /* Smaller button text */
+  }
+
+  .even-slide span {
+    font-size: 0.75rem !important; /* Smaller badge text */
+    padding: 6px 12px !important; /* Smaller badge padding */
+  }
+}
