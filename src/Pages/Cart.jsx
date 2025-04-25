@@ -165,7 +165,7 @@ const CartPage = () => {
               Checkout
             </button>
 
-            <button
+            {/* <button
               onClick={handleToggleInsurance}
               className={`w-full py-3 mt-3 border rounded-md font-semibold transition ${
                 isInsuranceAdded
@@ -176,7 +176,7 @@ const CartPage = () => {
               {isInsuranceAdded
                 ? "Parcel Insurance Added - GH₵1.95"
                 : "Add Parcel Insurance - GH₵1.95"}
-            </button>
+            </button> */}
           </div>
         </div>
       )}
