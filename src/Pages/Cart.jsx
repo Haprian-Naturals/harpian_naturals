@@ -30,7 +30,7 @@ const CartPage = () => {
     }
     message += "Please confirm my order and provide payment details.";
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "+1234567890";
+    const phoneNumber = "+233550114976";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, "_blank");
