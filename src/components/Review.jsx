@@ -5,9 +5,9 @@ import product3 from "../assets/ist.png";
 // import vid1 from "../videos/washing_video.mp4";
 // import vid2 from "../videos/oil_treatment.mp4";
 // import vid3 from "../videos/dirty_hair.mp4";
-import vid1 from "/videos/washing_video.mp4"
-import vid2 from "/videos/oil_treatment.mp4"
-import vid3 from "/videos/dirty_hair.mp4"
+import vid1 from "../videos/washing_video.mp4"
+import vid2 from "../videos/oil_treatment.mp4"
+import vid3 from "../videos/dirty_hair.mp4"
 
 const ReviewSection = () => {
   const reviews = [

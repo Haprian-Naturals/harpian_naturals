@@ -36,8 +36,8 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="w-full bg-white/80 backdrop-blur-md shadow-lg p-3 px-4 md:px-8 fixed top-0 left-0 z-50 rounded-b-2xl border-b border-[#E0E0E0]"
-        style={{ "--navbar-height": "5rem" }}
+        className="w-full bg-white/80 backdrop-blur-md shadow-lg p-3 px-4 md:px-8 fixed top-0 left-0 z-50 border-b border-[#E0E0E0]"
+        style={{ "--navbar-height": "4rem" }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center">
