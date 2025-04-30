@@ -68,6 +68,8 @@ const Sale = () => {
         Upload Product
       </button>
     </form>
+
+    
   );
 };
 

@@ -88,10 +88,7 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Breadcrumb */}
-      <div className="bg-white py-4 px-6 shadow-sm">
-        <p className="text-[#333333] text-sm">Shop | Hair Care</p>
-      </div>
+      
 
       <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Sidebar */}
@@ -218,7 +215,7 @@ const Shop = () => {
         {/* Main Content */}
         <div className="lg:w-3/4 w-full">
           <div className="flex justify-between items-center mb-6">
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <button
                 onClick={() => toggleView("grid")}
                 className={`text-[#333333] ${
@@ -235,8 +232,8 @@ const Shop = () => {
               >
                 <MdList />
               </button>
-            </div>
-            <p className="text-[#333333]">
+            </div> */}
+            <p className="mx-2 text-[#333333]">
               Showing: {filteredProducts.length} Results
             </p>
             <select
