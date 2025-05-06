@@ -108,6 +108,8 @@ const Shop = () => {
             CATEGORIES
           </h2>
           <p className="text-[#666666] font-medium mb-6">Hair Care</p>
+          <p className="text-[#666666] font-medium mb-6">Skin Care</p>
+          <p className="text-[#666666] font-medium mb-6">Natural oil</p>
 
           <h2 className="text-2xl font-bold text-[#1A3C34] mb-4 border-b-2 border-[#8CC63F] pb-2 font-['Playfair_Display']">
             AVAILABILITY

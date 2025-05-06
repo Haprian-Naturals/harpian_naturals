@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { User, Heart, ShoppingBag } from "lucide-react";
 import Logo from "./HaprianLogo";
-import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 import { NavLink } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
@@ -9,28 +8,50 @@ import CartModal from "./CartModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   const { totalItems } = useContext(CartContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setIsAuthenticated(true);
+      setUserName(localStorage.getItem("userName") || "");
+    }
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleCartModal = () => setIsCartModalOpen(!isCartModalOpen);
 
-  const handleSwitchToSignUp = () => {
-    setIsLoginModalOpen(false);
-    setIsSignUpModalOpen(true);
-  };
-
-  const handleSwitchToLogin = () => {
-    setIsSignUpModalOpen(false);
-    setIsLoginModalOpen(true);
-  };
-
   const handleLinkClick = (link) => {
     setActiveLink(link);
     setIsMenuOpen(false);
+  };
+
+  const handleAuthSuccess = (name) => {
+    setIsAuthenticated(true);
+    setUserName(name || "User");
+    localStorage.setItem("token", "example-token");
+    localStorage.setItem("userName", name);
+    setIsAuthModalOpen(false);
+  };
+
+  const getInitials = (name) => {
+    if (!name) return "";
+    const names = name.split(" ");
+    let initials = names[0][0];
+    if (names.length > 1) initials += names[names.length - 1][0];
+    return initials.toUpperCase();
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUserName("");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
   };
 
   return (
@@ -108,12 +129,22 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <button
-              onClick={() => setIsLoginModalOpen(true)}
-              className="text-[#333333] hover:text-[#8CC63F] cursor-pointer"
-            >
-              <User size={20} />
-            </button>
+            <div className="relative">
+              <div
+                className={`flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 ${
+                  isAuthenticated ? "cursor-default" : "cursor-pointer"
+                } text-[#333333] hover:text-[#8CC63F] transition-colors duration-200`}
+                onClick={isAuthenticated ? null : () => setIsAuthModalOpen(true)}
+              >
+                {isAuthenticated ? (
+                  <span className="text-sm font-bold">
+                    {getInitials(userName)}
+                  </span>
+                ) : (
+                  <User size={20} />
+                )}
+              </div>
+            </div>
             <NavLink
               to="/wishlist"
               className={({ isActive }) =>
@@ -136,6 +167,17 @@ const Navbar = () => {
                 {totalItems}
               </span>
             </button>
+            {isAuthenticated && (
+              <div className="relative group">
+                <i
+                  className="fas mt-2 fa-sign-out-alt text-[#333333] text-xl hover:text-[#8CC63F] transition cursor-pointer"
+                  onClick={handleLogout}
+                ></i>
+                {/* <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                  Sign Out
+                </span> */}
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -181,19 +223,22 @@ const Navbar = () => {
               {label.toUpperCase()}
             </a>
           ))}
+          {isAuthenticated && (
+            <button
+              onClick={handleLogout}
+              className="font-medium text-xl text-[#333333] hover:text-[#4A6BFF] border-b border-gray-200 pb-4 w-full text-center flex items-center justify-center"
+            >
+              <i className="fas fa-sign-out-alt mr-2"></i>
+              SIGN OUT
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Modals */}
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        onSwitchToSignUp={handleSwitchToSignUp}
-      />
       <SignUpModal
-        isOpen={isSignUpModalOpen}
-        onClose={() => setIsSignUpModalOpen(false)}
-        onSwitchToLogin={handleSwitchToLogin}
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onLoginSuccess={handleAuthSuccess}
       />
 
       <CartModal
