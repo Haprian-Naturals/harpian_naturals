@@ -134,7 +134,9 @@ const Navbar = () => {
                 className={`flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 ${
                   isAuthenticated ? "cursor-default" : "cursor-pointer"
                 } text-[#333333] hover:text-[#8CC63F] transition-colors duration-200`}
-                onClick={isAuthenticated ? null : () => setIsAuthModalOpen(true)}
+                onClick={
+                  isAuthenticated ? null : () => setIsAuthModalOpen(true)
+                }
               >
                 {isAuthenticated ? (
                   <span className="text-sm font-bold">
@@ -145,19 +147,22 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-            <NavLink
-              to="/wishlist"
-              className={({ isActive }) =>
-                `p-2 rounded-full relative hover:bg-[#F0F0F0] transition ${
-                  isActive ? "text-[#8CC63F]" : "text-[#333333]"
-                }`
-              }
-            >
-              <Heart size={20} />
-              <span className="absolute -top-1 -right-1 bg-[#8CC63F] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
-                1
-              </span>
-            </NavLink>
+            {isAuthenticated ? null : (
+              <NavLink
+                to="/wishlist"
+                className={({ isActive }) =>
+                  `p-2 rounded-full relative hover:bg-[#F0F0F0] transition ${
+                    isActive ? "text-[#8CC63F]" : "text-[#333333]"
+                  }`
+                }
+              >
+                <Heart size={20} />
+                <span className="absolute -top-1 -right-1 bg-[#8CC63F] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
+                  1
+                </span>
+              </NavLink>
+            )}
+
             <button
               onClick={toggleCartModal}
               className="p-2 rounded-full relative hover:bg-[#F0F0F0] transition cursor-pointer"
