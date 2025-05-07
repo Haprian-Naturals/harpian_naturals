@@ -4,7 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export const signup = async (userData) => {
   try {
     const response = await fetch(
-      `https://haprian-api.onrender.com/api/user/register`,
+      `${BASE_URL}/api/user/register`,
       {
         method: "POST",
         headers: {
@@ -29,7 +29,7 @@ export const signup = async (userData) => {
 // Verify code function
 // In auth.js
 export const verifyCode = async (verificationData) => {
-  const response = await fetch(`${BASE_URL}/user/verify-email`, {
+  const response = await fetch(`${BASE_URL}/api/user/verify-email`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(verificationData),
@@ -41,7 +41,7 @@ export const verifyCode = async (verificationData) => {
 // Login function
 export const login = async (credentials) => {
   try {
-    const response = await fetch(`${BASE_URL}/user/login`, {
+    const response = await fetch(`${BASE_URL}/api/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
