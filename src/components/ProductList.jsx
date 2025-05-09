@@ -1,94 +1,50 @@
-import React, { useState } from "react";
-import product1 from "../assets/treat.png";
-import product2 from "../assets/ist.png";
-import product3 from "../assets/cast.png";
-import product4 from "../assets/rose.png";
+import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import { getProducts } from "../services/product.js"; // Adjust path to your API file
 
 const ProductList = () => {
   const [activeTab, setActiveTab] = useState("Best Sellers");
   const [startIndex, setStartIndex] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const products = [
-    {
-      id: "1",
-      image: product2,
-      brand: "REDO HAIRCARE",
-      name: "Genie in a Bottle Miracle Spray 250ml Miracle",
-      price: "GH₵24.95",
-      rating: 58,
-      category: "Best Sellers",
-    },
-    {
-      id: "2",
-      image: product2,
-      brand: "MILK_SHAKE",
-      name: "Incredible Milk 150ml in a Bottle Miracle",
-      price: "GH₵31.96",
-      rating: 58,
-      category: "New Arrivals",
-    },
-    {
-      id: "3",
-      image: product3,
-      brand: "TYPEBEA G1",
-      name: "Overnight Boosting Peptide Serum 100ml",
-      price: "GH₵80.00",
-      rating: 11,
-      category: "Sale",
-    },
-    {
-      id: "4",
-      image: product4,
-      brand: "K18",
-      name: "Leave-In Molecular Repair Mask 50ml Miracle",
-      price: "GH₵99.95",
-      rating: 793,
-      category: "Best Sellers",
-    },
-    {
-      id: "5",
-      image: product1,
-      brand: "REDO HAIRCARE",
-      name: "Hydrating Shampoo Molecular 300ml",
-      price: "GH₵19.99",
-      rating: 45,
-      category: "Best Sellers",
-    },
-    {
-      id: "6",
-      image: product3,
-      brand: "MILK_SHAKE",
-      name: "Conditioner for Dry Hair 200ml",
-      price: "GH₵25.00",
-      rating: 32,
-      category: "New Arrivals",
-    },
-    {
-      id: "7",
-      image: product4,
-      brand: "TYPEBEA G1",
-      name: "Scalp Treatment Oil 100ml",
-      price: "GH₵35.00",
-      rating: 20,
-      category: "Sale",
-    },
-    {
-      id: "8",
-      image: product4,
-      brand: "K18",
-      name: "Leave-In Molecular Repair Mask 50ml Miracle",
-      price: "GH₵99.95",
-      rating: 793,
-      category: "Best Sellers",
-    },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+        setProducts(data.products);
+        console.log(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const tabs = ["Best Sellers", "New Arrivals", "Sale"];
 
-  const filteredProducts = products.filter(
-    (product) => product.category === activeTab
-  );
+  // Apply sorting and limiting based on active tab
+  const getFilteredProducts = () => {
+    let filtered = [...products]; // Create a copy to avoid mutating the original array
+    switch (activeTab) {
+      case "Best Sellers":
+        filtered.sort((a, b) => (b.rating || 40) - (a.rating || 50)); // Descending order by rating
+        return filtered.slice(0, 4);
+      case "New Arrivals":
+        filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // Descending order by createdAt
+        return filtered.slice(0, 4);
+      case "Sale":
+        return filtered.slice(0, 3); // First 3 products, no sorting
+      default:
+        return filtered;
+    }
+  };
+
+  const filteredProducts = getFilteredProducts();
 
   const productsPerPage = 4;
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
@@ -115,9 +71,13 @@ const ProductList = () => {
       ? filteredProducts
       : filteredProducts.slice(startIndex, startIndex + productsPerPage);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setStartIndex(0);
   }, [activeTab]);
+
+  if (loading) return <p className="text-center py-10">Loading products...</p>;
+  if (error)
+    return <p className="text-center py-10 text-red-500">Error: {error}</p>;
 
   return (
     <div className="py-12 bg-[#F5F7F5]">
@@ -142,14 +102,20 @@ const ProductList = () => {
         </div>
         <div className="relative">
           <div className="md:grid md:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 transition-all duration-500 ease-in-out flex flex-row overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-            {displayedProducts.map((product) => (
-              <div
-                className="snap-center shrink-0 w-60 md:w-auto"
-                key={product.id}
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
+            {displayedProducts.length > 0 ? (
+              displayedProducts.map((product) => (
+                <div
+                  className="snap-center shrink-0 w-60 md:w-auto"
+                  key={product.id}
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500 col-span-full">
+                No products available in this category.
+              </p>
+            )}
           </div>
           {filteredProducts.length > productsPerPage && (
             <>

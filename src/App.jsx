@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Contact from "./Pages/Contact";
 import Sale from "./Pages/Sale";
 import Cart from "./Pages/Cart";
+import ProductDetail from "./Pages/ProductDetail"
 import { CartProvider } from "./context/CartContext";
 
 // Main app component
@@ -21,6 +22,8 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/sale" element={<Sale />} />
+            <Route path="/products/:id" element={<ProductDetail />}/>
+            
             <Route path="/contact" element={<Contact />} />
             {/* Add other routes as needed */}
           </Routes>

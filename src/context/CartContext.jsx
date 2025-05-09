@@ -18,11 +18,11 @@ export const CartProvider = ({ children }) => {
       if (existingItem) {
         return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + product.quantity }
             : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: product.quantity || 1 }];
     });
   };
 
@@ -47,6 +47,10 @@ export const CartProvider = ({ children }) => {
     localStorage.removeItem("cart");
   };
 
+  const getCart = () => {
+    return cart;
+  };
+
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -61,6 +65,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
+        getCart,
         totalItems,
         totalPrice,
       }}

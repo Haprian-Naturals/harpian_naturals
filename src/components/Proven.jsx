@@ -39,10 +39,15 @@ const ScientificallyProven = () => {
             </div>
 
             {/* Text and Benefits */}
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col mt-5">
               <h3 className="text-xl text-[#1A3C34] font-medium mb-4">
                 Results on wavy, highlighted hair
               </h3>
+              <p className="text-gray-700 mb-4">
+                “The SOS Repair saved my strands! My ends felt so much
+                healthier, my frizz is under control, and split ends are gone.
+                My hair feels softer, shinier, and stronger.”
+              </p>
               <p className="text-gray-700 mb-4">
                 “The SOS Repair saved my strands! My ends felt so much
                 healthier, my frizz is under control, and split ends are gone.

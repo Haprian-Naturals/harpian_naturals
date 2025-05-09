@@ -7,6 +7,8 @@ const CartPage = () => {
   const [discountCode, setDiscountCode] = useState("");
   const [isInsuranceAdded, setIsInsuranceAdded] = useState(false);
 
+  const imageUrl = "https://res.cloudinary.com/dpflhpvla/image/upload/";
+
   const handleProceedToCheckout = () => {
     if (cart.length === 0) {
       alert(
@@ -71,7 +73,9 @@ const CartPage = () => {
                   className="flex items-center space-x-5 border border-gray-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 >
                   <img
-                    src={item.image}
+                    src={`${imageUrl}${item.image[0]}.${
+                      item.image[0]?.includes("png") ? "png" : "jpg"
+                    }`}
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded-lg bg-gray-100"
                   />

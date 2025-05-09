@@ -18,6 +18,18 @@ const CartModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  // const imageUrl = "https://res.cloudinary.com/dpflhpvla/image/upload/";
+
+  // haprian - naturals - api / product - images / mxspcsl5fwfltrysc9hb;
+
+  // // const imageUrl = `https://res.cloudinary.com/dpflhpvla/image/upload/v1746719705/haprian-naturals-api/product-images/rczqagsu5uuomjxusqar.png`;
+
+  // const imageSrc = `${imageUrl}${product.image[0]}.${
+  //   product.image[0]?.includes("png") ? "png" : "jpg"
+  // }`;
+
+  const imageUrl = "https://res.cloudinary.com/dpflhpvla/image/upload/";
+
   if (!isOpen) return null;
 
   return (
@@ -64,12 +76,11 @@ const CartModal = ({ isOpen, onClose }) => {
         <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
           {cart.length === 0 ? (
             <div>
-            <p className="text-[#666] text-center text-base">
-              Your cart is empty.
-            </p>
-            <a href="/shop">Continue shopping</a>
+              <p className="text-[#666] text-center text-base">
+                Your cart is empty.
+              </p>
+              <a href="/shop">Continue shopping</a>
             </div>
-            
           ) : (
             <div className="space-y-6">
               {cart.map((item) => (
@@ -78,10 +89,13 @@ const CartModal = ({ isOpen, onClose }) => {
                   className="flex items-start space-x-4 border-b border-[#D4E4D8] pb-4"
                 >
                   <img
-                    src={item.image}
+                    src={`${imageUrl}${item.image}.${
+                      item.image?.includes("png") ? "png" : "jpg"
+                    }`}
                     alt={item.name}
                     className="w-16 h-16 object-cover rounded-md bg-[#D4E4D8] shadow-sm"
                   />
+
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <h3 className="text-base font-medium text-[#1A3C34] leading-tight">
