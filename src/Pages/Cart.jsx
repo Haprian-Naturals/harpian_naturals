@@ -73,7 +73,7 @@ const CartPage = () => {
                   className="flex items-center space-x-5 border border-gray-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 >
                   <img
-                    src={`${imageUrl}${item.image[0]}.${
+                    src={`${imageUrl}${item.image}.${
                       item.image[0]?.includes("png") ? "png" : "jpg"
                     }`}
                     alt={item.name}
@@ -166,7 +166,7 @@ const CartPage = () => {
               // onClick={handleProceedToCheckout}
               className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
             >
-              <a href="/checkout">Checkout</a>
+              <a href="/checkout">Proceed to checkout</a>
             </button>
 
             {/* <button
