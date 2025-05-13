@@ -163,10 +163,10 @@ const CartPage = () => {
             </p>
 
             <button
-              onClick={handleProceedToCheckout}
+              // onClick={handleProceedToCheckout}
               className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
             >
-              Checkout
+              <a href="/checkout">Checkout</a>
             </button>
 
             {/* <button
