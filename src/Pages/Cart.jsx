@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 const CartPage = () => {
   const { cart, updateQuantity, removeFromCart, totalPrice, clearCart } =
@@ -7,37 +8,11 @@ const CartPage = () => {
   const [discountCode, setDiscountCode] = useState("");
   const [isInsuranceAdded, setIsInsuranceAdded] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const imageUrl = "https://res.cloudinary.com/dpflhpvla/image/upload/";
-
-  const handleProceedToCheckout = () => {
-    if (cart.length === 0) {
-      alert(
-        "Your cart is empty. Add some items before proceeding to checkout."
-      );
-      return;
-    }
-
-    let message = "Hello, I'd like to place an order:\n\n";
-    cart.forEach((item) => {
-      message += `- ${item.name} (Qty: ${item.quantity}) - GH₵${(
-        item.price * item.quantity
-      ).toFixed(2)}\n`;
-    });
-    message += `\nSubtotal: GH₵${totalPrice.toFixed(2)}\n`;
-    if (isInsuranceAdded) {
-      message += `Parcel Insurance: GH₵1.95\n`;
-      message += `Total: GH₵${(totalPrice + 1.95).toFixed(2)}\n`;
-    } else {
-      message += `Total: GH₵${totalPrice.toFixed(2)}\n`;
-    }
-    message += "Please confirm my order and provide payment details.";
-    const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "+233550114976";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-    window.open(whatsappUrl, "_blank");
-    clearCart();
-  };
 
   const handleApplyDiscount = () => {
     if (discountCode) {
@@ -45,10 +20,6 @@ const CartPage = () => {
         `Discount code "${discountCode}" applied! (Note: Discount logic not implemented)`
       );
     }
-  };
-
-  const handleToggleInsurance = () => {
-    setIsInsuranceAdded(!isInsuranceAdded);
   };
 
   return (
@@ -107,9 +78,10 @@ const CartPage = () => {
                     </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="text-sm mt-2 text-red-500 hover:underline"
+                      className="flex items-center space-x-1 text-sm mt-3 text-red-500 hover:text-red-700 transition"
                     >
-                      Remove
+                      <TrashIcon className="w-4 h-4" />
+                      <span>Remove</span>
                     </button>
                   </div>
                 </div>
@@ -162,25 +134,9 @@ const CartPage = () => {
               Shipping & taxes calculated at checkout
             </p>
 
-            <button
-              // onClick={handleProceedToCheckout}
-              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
-            >
+            <button className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
               <a href="/checkout">Proceed to checkout</a>
             </button>
-
-            {/* <button
-              onClick={handleToggleInsurance}
-              className={`w-full py-3 mt-3 border rounded-md font-semibold transition ${
-                isInsuranceAdded
-                  ? "bg-purple-600 text-white border-purple-600 hover:bg-purple-700"
-                  : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
-              }`}
-            >
-              {isInsuranceAdded
-                ? "Parcel Insurance Added - GH₵1.95"
-                : "Add Parcel Insurance - GH₵1.95"}
-            </button> */}
           </div>
         </div>
       )}

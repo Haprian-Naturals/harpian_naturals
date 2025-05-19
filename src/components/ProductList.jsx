@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import { getProducts } from "../services/product.js"; // Adjust path to your API file
+import SkeletonCard from "../components/SkeletonCard"; // import here
+import { getProducts } from "../services/product.js";
 
 const ProductList = () => {
   const [activeTab, setActiveTab] = useState("Best Sellers");
@@ -15,7 +16,6 @@ const ProductList = () => {
         setLoading(true);
         const data = await getProducts();
         setProducts(data.products);
-        console.log(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -27,27 +27,24 @@ const ProductList = () => {
 
   const tabs = ["Best Sellers", "New Arrivals", "Sale"];
 
-  // Apply sorting and limiting based on active tab
   const getFilteredProducts = () => {
-    let filtered = [...products]; // Create a copy to avoid mutating the original array
+    let filtered = [...products];
     switch (activeTab) {
       case "Best Sellers":
-        filtered.sort((a, b) => (b.rating || 40) - (a.rating || 50)); // Descending order by rating
+        filtered.sort((a, b) => (b.rating || 40) - (a.rating || 50));
         return filtered.slice(0, 4);
       case "New Arrivals":
-        filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // Descending order by createdAt
+        filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         return filtered.slice(0, 4);
       case "Sale":
-        return filtered.slice(0, 3); // First 3 products, no sorting
+        return filtered.slice(0, 3);
       default:
         return filtered;
     }
   };
 
   const filteredProducts = getFilteredProducts();
-
   const productsPerPage = 4;
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const handleNext = () => {
     setStartIndex((prevIndex) => {
@@ -65,19 +62,14 @@ const ProductList = () => {
     });
   };
 
-  // On mobile (below md), show all products for horizontal scrolling; on md and above, use slider logic
   const displayedProducts =
-    window.innerWidth < 768
+    typeof window !== "undefined" && window.innerWidth < 768
       ? filteredProducts
       : filteredProducts.slice(startIndex, startIndex + productsPerPage);
 
   useEffect(() => {
     setStartIndex(0);
   }, [activeTab]);
-
-  if (loading) return <p className="text-center py-10">Loading products...</p>;
-  if (error)
-    return <p className="text-center py-10 text-red-500">Error: {error}</p>;
 
   return (
     <div className="py-12 bg-[#F5F7F5]">
@@ -102,7 +94,17 @@ const ProductList = () => {
         </div>
         <div className="relative">
           <div className="md:grid md:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 transition-all duration-500 ease-in-out flex flex-row overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-            {displayedProducts.length > 0 ? (
+            {loading ? (
+              // Show 4 skeletons as fallback
+              [...Array(4)].map((_, index) => (
+                <div
+                  className="snap-center shrink-0 w-60 md:w-auto"
+                  key={index}
+                >
+                  <SkeletonCard />
+                </div>
+              ))
+            ) : displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
                 <div
                   className="snap-center shrink-0 w-60 md:w-auto"
@@ -117,7 +119,8 @@ const ProductList = () => {
               </p>
             )}
           </div>
-          {filteredProducts.length > productsPerPage && (
+
+          {!loading && filteredProducts.length > productsPerPage && (
             <>
               <button
                 onClick={handlePrev}
@@ -128,7 +131,6 @@ const ProductList = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
@@ -147,7 +149,6 @@ const ProductList = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
