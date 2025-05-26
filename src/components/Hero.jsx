@@ -11,7 +11,7 @@ const MainHero = () => {
   }, []);
 
   return (
-    <div className="relative top-[-0.2in]">
+    <div className="relative top-[-0.05in]">
       {isAuthenticated ? <HeroSection /> : <UnauthenticatedHeroSection />}
     </div>
   );

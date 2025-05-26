@@ -11,9 +11,9 @@ const Footer = () => {
           {/* Left Section: Logo, Address, Contact, Social Icons */}
           <div className="flex flex-col space-y-4">
             <div>
-              <Logo/>
+              <Logo />
             </div>
-            
+
             <p className="text-sm text-gray-600">
               Johar Town, Lahore
               <br />
@@ -83,25 +83,25 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-800">Information</h3>
             <Link
               to="/terms"
-              className="text-sm text-gray-600 hover:text-purple-600"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
             >
               Terms of Service
             </Link>
             <Link
               to="/shipping"
-              className="text-sm text-gray-600 hover:text-purple-600"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
             >
               Shipping Policy
             </Link>
             <Link
               to="/refund"
-              className="text-sm text-gray-600 hover:text-purple-600"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
             >
               Refund Policy
             </Link>
             <Link
               to="/contact"
-              className="text-sm text-gray-600 hover:text-purple-600"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
             >
               Contact
             </Link>
@@ -110,17 +110,23 @@ const Footer = () => {
           {/* Middle-Right Section: Quick Shop Links */}
           <div className="flex flex-col space-y-2">
             <h3 className="text-lg font-semibold text-gray-800">Quick Shop</h3>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+            <a
+              href="/shop"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
+            >
               Hair Care
             </a>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+            <a
+              href="/shop"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
+            >
               Skin Care
             </a>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
+            <a
+              href="/shop"
+              className="text-sm text-gray-600 hover:text-[#8CC63F]"
+            >
               Serums
-            </a>
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">
-              Sale
             </a>
             {/* <Link
               to="/hair-care"

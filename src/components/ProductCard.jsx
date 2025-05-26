@@ -77,18 +77,18 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-      <div className="bg-white rounded-md shadow-md hover:shadow-lg relative">
-        <div className="relative overflow-hidden p-4">
+      <div className="bg-white rounded-md shadow-md hover:shadow-lg relative pt-2">
+        <div className="relative overflow-hidden bg-[#D4E4D8]  m-3">
           <img
             src={imageSrc}
             alt={product.name}
-            className="w-full h-48 object-contain bg-[#D4E4D8] transition-transform duration-300 hover:scale-105"
+            className="mix-blend-multiply w-full h-48 object-contain transition-transform duration-300 hover:scale-105 block"
           />
         </div>
         <div className="px-4 pb-5 flex flex-col items-center flex-grow">
-          <p className="text-xs text-[#8CC63F] uppercase tracking-wide mb-1">
+          {/* <p className="text-xs text-[#8CC63F] uppercase tracking-wide mb-1">
             {product.brand || "Unknown Brand"}
-          </p>
+          </p> */}
           <h3 className="text-base font-medium text-[#1A3C34] text-center leading-tight mb-2">
             {product.name || "Unnamed Product"}
           </h3>
@@ -97,7 +97,7 @@ const ProductCard = ({ product }) => {
               <svg
                 key={i}
                 className={`w-4 h-4 ${
-                  i < Math.floor((product.rating || 0) / 10)
+                  i < Math.floor((product.averageRating || 0) / 10)
                     ? "text-[#8CC63F]"
                     : "text-gray-300"
                 }`}
@@ -107,9 +107,9 @@ const ProductCard = ({ product }) => {
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.691h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.84-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.27 9.394c-.784-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.691l1.286-3.966z" />
               </svg>
             ))}
-            {/* <span className="text-xs text-gray-500 ml-1">
-              ({product.rating || 0})
-            </span> */}
+            <span className="text-xs text-gray-500 ml-1">
+              {/* ({product.rating || 0}) */}
+            </span>
           </div>
           <p className="text-sm font-semibold text-gray-800 mb-3">
             GH₵{product.price || "0.00"}

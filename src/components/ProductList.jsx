@@ -77,7 +77,7 @@ const ProductList = () => {
         <h2 className="text-3xl text-[#1A3C34] font-bold text-center uppercase mb-6 font-['Playfair_Display']">
           Just For You
         </h2>
-        <div className="flex justify-center space-x-6 mb-10">
+        <div className="flex justify-center space-x-6 mb-10 cursor-pointer">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -107,7 +107,7 @@ const ProductList = () => {
             ) : displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
                 <div
-                  className="snap-center shrink-0 w-60 md:w-auto"
+                  className="snap-center shrink-0  w-60 md:w-auto"
                   key={product.id}
                 >
                   <ProductCard product={product} />
