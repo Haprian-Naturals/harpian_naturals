@@ -3,9 +3,8 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen flex bg-gray-100 justify-center py-6">
+    <div className="min-h-screen flex bg-gray-100 justify-center py-6 relative top-[-0.2in]">
       <div className="w-full max-w-7xl">
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Contact Form Section */}
           <div className="lg:col-span-2 bg-white p-6 shadow-md">

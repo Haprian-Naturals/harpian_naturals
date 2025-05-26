@@ -101,8 +101,8 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {["/", "/shop", "/sale", "/contact"].map((path, idx) => {
-              const labels = ["HOME", "SHOP", "SALE", "CONTACT"];
+            {["/", "/shop", "/contact"].map((path, idx) => {
+              const labels = ["HOME", "SHOP", "CONTACT"];
               return (
                 <NavLink
                   key={path}
@@ -246,3 +246,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+ 

@@ -107,9 +107,9 @@ const ProductCard = ({ product }) => {
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.691h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.84-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.27 9.394c-.784-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.691l1.286-3.966z" />
               </svg>
             ))}
-            <span className="text-xs text-gray-500 ml-1">
+            {/* <span className="text-xs text-gray-500 ml-1">
               ({product.rating || 0})
-            </span>
+            </span> */}
           </div>
           <p className="text-sm font-semibold text-gray-800 mb-3">
             GH₵{product.price || "0.00"}

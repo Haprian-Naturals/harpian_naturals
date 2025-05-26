@@ -7,7 +7,7 @@ import Contact from "./Pages/Contact";
 import Sale from "./Pages/Sale";
 import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
-import ProductDetail from "./Pages/ProductDetail"
+import ProductDetail from "./Pages/ProductDetail";
 import { CartProvider } from "./context/CartContext";
 
 // Main app component
@@ -16,6 +16,7 @@ function App() {
     <CartProvider>
       <div>
         <Nav />
+
         {/* Wrap content in a <main> tag and apply padding-top */}
         <main style={{ paddingTop: "var(--navbar-height, 5rem)" }}>
           <Routes>
@@ -23,9 +24,9 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/sale" element={<Sale />} />
-            <Route path="/products/:id" element={<ProductDetail />}/>
-            
+            {/* <Route path="/sale" element={<Sale />} /> */}
+            <Route path="/products/:id" element={<ProductDetail />} />
+
             <Route path="/contact" element={<Contact />} />
             {/* Add other routes as needed */}
           </Routes>

@@ -74,11 +74,11 @@ const Blog = () => {
         </div>
 
         {/* View Blogs Button */}
-        <div className="flex justify-center mt-8">
+        {/* <div className="flex justify-center mt-8">
           <button className="bg-[#003087] text-white uppercase font-semibold rounded px-6 py-2 hover:bg-[#4A6BFF] transition">
             View Blogs
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

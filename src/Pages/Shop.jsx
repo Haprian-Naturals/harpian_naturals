@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { MdGridView, MdList } from "react-icons/md";
 import { CartContext } from "../context/CartContext";
 import { getProducts } from "../services/product.js";
 import ProductCard from "../components/ProductCard.jsx";
@@ -24,7 +23,7 @@ const Shop = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true);
   const [sortOption, setSortOption] = useState("Featured");
-  const [priceRange, setPriceRange] = useState([0, 3760]);
+  const [priceRange, setPriceRange] = useState([0, 3760]); // Original range in rupees, adjust based on API data
   const [availability, setAvailability] = useState({
     inStock: false,
     outOfStock: false,
@@ -139,11 +138,96 @@ const Shop = () => {
   return (
     <div className="min-h-screen">
       <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Sidebar -- unchanged */}
-        {/* ... Keep your entire sidebar code the same ... */}
+        {/* Sidebar - Hidden on mobile, visible on lg and above */}
+        <div className="hidden lg:block lg:w-1/4 w-full lg:pr-8 mb-8 lg:mb-0">
+          <div className="bg-white p-6 rounded shadow-md">
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">CATEGORIES</h2>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full border border-[#D3D3D3] rounded px-2 py-1 text-[#333333] mb-6"
+            >
+              {allowedCategories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">AVAILABILITY</h2>
+            <div className="space-y-2 mb-6">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={availability.inStock}
+                  onChange={() => handleAvailabilityChange("inStock")}
+                  className="mr-2"
+                />
+                In stock
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={availability.outOfStock}
+                  onChange={() => handleAvailabilityChange("outOfStock")}
+                  className="mr-2"
+                />
+                Out of stock
+              </label>
+            </div>
+
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">PRICE</h2>
+            <div className="mb-6">
+              <Slider
+                range
+                min={0}
+                max={3760} // Adjust based on your API's max price, converted to GHC
+                value={priceRange}
+                onChange={setPriceRange}
+                className="mb-4"
+                trackStyle={{ backgroundColor: "#8CC63F" }}
+                handleStyle={{ borderColor: "#8CC63F" }}
+                railStyle={{ backgroundColor: "#D3D3D3" }}
+              />
+              <p className="text-[#333333]">
+                GHC {priceRange[0].toFixed(2)} - GHC {priceRange[1].toFixed(2)}
+              </p>
+            </div>
+
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">PRODUCT TYPE</h2>
+            <div className="space-y-2 mb-6">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={productTypes.HairCare}
+                  onChange={() => handleProductTypeChange("HairCare")}
+                  className="mr-2"
+                />
+                Hair Care
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={productTypes.SkinCare}
+                  onChange={() => handleProductTypeChange("SkinCare")}
+                  className="mr-2"
+                />
+                Skin Care
+              </label>
+            </div>
+
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">POPULAR PRODUCT COLLECTION</h2>
+            <p className="text-[#333333] text-sm mb-2">
+              Please select collection from store
+            </p>
+            <a href="#" className="text-[#8CC63F] text-sm hover:underline">
+              admin | customize | Collection page
+            </a>
+          </div>
+        </div>
 
         {/* Main Content */}
-        <div className="lg:w-3/4 w-full">
+        <div className="w-full lg:w-3/4">
           <div className="flex flex-col lg:flex-row justify-between items-center mb-6 space-y-4 lg:space-y-0">
             <select
               value={sortOption}
