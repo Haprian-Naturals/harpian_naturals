@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 
 // Send order to the server
 export const addOrder = async (orderData) => {

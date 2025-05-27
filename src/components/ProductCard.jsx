@@ -12,6 +12,15 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => (document.body.style.overflow = "");
+  }, [isModalOpen]);
+
   const getTruncatedDescription = (desc, maxLength = 100) => {
     if (!desc) return "Rejuvenate Your Skin While You Sleep...";
     if (desc.length <= maxLength || showFullDescription) return desc;
@@ -66,14 +75,7 @@ const ProductCard = ({ product }) => {
     setQuantity((prev) => Math.max(1, prev + change));
   };
 
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => (document.body.style.overflow = "");
-  }, [isModalOpen]);
+  
 
   return (
     <>

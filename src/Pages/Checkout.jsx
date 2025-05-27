@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { Trash2 } from "lucide-react";
 import { addOrder } from "../services/order";
+import toast from "react-hot-toast";
+
 
 const Checkout = () => {
-  const { cart, updateQuantity, removeFromCart, totalPrice, clearCart } =
+  const { cart, removeFromCart, totalPrice, clearCart } =
     useContext(CartContext);
   const navigate = useNavigate();
+
+  
 
   const imageUrl = "https://res.cloudinary.com/dpflhpvla/image/upload/";
 
@@ -59,7 +63,6 @@ const Checkout = () => {
         fullName: delivery.fullName,
         address: delivery.address,
         city: delivery.city,
-        postalCode: delivery.postalCode,
         country: delivery.country,
       },
       contact: {
@@ -104,10 +107,13 @@ ${cart
       window.open(whatsappUrl, "_blank");
 
       clearCart();
-      alert("Order placed successfully! WhatsApp message sent to vendor.");
+      // alert("Order placed successfully! WhatsApp message sent to vendor.");
+      toast.success("Order placed successfully! WhatsApp message sent to vendor.");
+      
     } catch (error) {
       console.error("Error submitting order:", error);
-      alert("Failed to place order. Please try again.");
+      toast.success("Error submitting order:")
+      // alert("Failed to place order. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -300,6 +306,8 @@ ${cart
           </div>
         </div>
       </div>
+
+      
     </div>
   );
 };
