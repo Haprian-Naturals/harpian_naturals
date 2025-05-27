@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { CartContext } from "../context/CartContext";
@@ -6,22 +6,33 @@ import { getProducts } from "../services/product.js";
 import ProductCard from "../components/ProductCard.jsx";
 import ProductSkeleton from "../components/ProductSkeleton.jsx"; // 👈 Import the skeleton
 import "../styles/Shop.css";
+import toast from "react-hot-toast";
+import { useLocation,useNavigate } from "react-router-dom";
+
 
 const Shop = () => {
-  const { addToCart } = useContext(CartContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const handleAddToCart = (product) => {
-    const productToAdd = {
-      ...product,
-      price: product.price,
-    };
-    addToCart(productToAdd);
-    alert(`${product.name} has been added to your cart!`);
-  };
+  useEffect(() => {
+    if (location.state?.orderSuccess) {
+      toast.success(
+        "Order placed successfully! WhatsApp message sent to vendor."
+      );
+
+      // Clean up the state to prevent duplicate toast on refresh or revisit
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate]);
+
+  console.log("Shop loaded. Location state:", location.state);
+
+
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [isGridView, setIsGridView] = useState(true);
+  let isGridView = true;
+  // const [isGridView, setIsGridView] = useState(true);
   const [sortOption, setSortOption] = useState("Featured");
   const [priceRange, setPriceRange] = useState([0, 3760]); // Original range in rupees, adjust based on API data
   const [availability, setAvailability] = useState({
@@ -32,7 +43,6 @@ const Shop = () => {
     SkinCare: false,
     HairCare: false,
   });
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -127,10 +137,6 @@ const Shop = () => {
       ...prev,
       [type]: !prev[type],
     }));
-  };
-
-  const toggleView = (view) => {
-    setIsGridView(view === "grid");
   };
 
   const allowedCategories = ["All", "Skin Care", "Hair Care"];

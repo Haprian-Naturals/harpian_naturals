@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { Trash2 } from "lucide-react";
 import { addOrder } from "../services/order";
 import toast from "react-hot-toast";
+
 
 
 const Checkout = () => {
@@ -15,11 +16,11 @@ const Checkout = () => {
 
   const imageUrl = "https://res.cloudinary.com/dpflhpvla/image/upload/";
 
-  useEffect(() => {
-    if (cart.length === 0) {
-      navigate("/shop");
-    }
-  }, [cart, navigate]);
+  // useEffect(() => {
+  //   if (cart.length === 0) {
+  //     navigate("/shop");
+  //   }
+  // }, [cart, navigate]);
 
   const [delivery, setDelivery] = useState({
     fullName: "",
@@ -108,12 +109,20 @@ ${cart
 
       clearCart();
       // alert("Order placed successfully! WhatsApp message sent to vendor.");
-      toast.success("Order placed successfully! WhatsApp message sent to vendor.");
+      toast.success(
+        "Order placed successfully! WhatsApp message sent to vendor."
+      );
+
+      navigate("/shop", {
+        state: { orderSuccess: true },
+      });
+
+     
       
     } catch (error) {
       console.error("Error submitting order:", error);
-      toast.success("Error submitting order:")
-      // alert("Failed to place order. Please try again.");
+      // toast.success("Error submitting order:")
+      alert("Failed to place order. Please try again.");
     } finally {
       setLoading(false);
     }

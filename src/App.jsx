@@ -9,12 +9,14 @@ import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
 import ProductDetail from "./Pages/ProductDetail";
 import { CartProvider } from "./context/CartContext";
+import { Toaster } from "react-hot-toast";
 
 // Main app component
 function App() {
   return (
     <CartProvider>
       <div>
+        <Toaster position="top-right" />
         <Nav />
 
         {/* Wrap content in a <main> tag and apply padding-top */}
