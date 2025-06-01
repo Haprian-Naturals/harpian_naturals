@@ -139,7 +139,7 @@ const Navbar = () => {
 
             {!isAuthenticated && (
               <NavLink
-                to="/wishlist"
+                to="/"
                 className={({ isActive }) =>
                   `relative p-2 rounded-full hover:bg-gray-100 transition ${
                     isActive ? "text-[#8CC63F]" : "text-[#333]"

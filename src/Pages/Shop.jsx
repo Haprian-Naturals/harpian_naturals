@@ -7,8 +7,7 @@ import ProductCard from "../components/ProductCard.jsx";
 import ProductSkeleton from "../components/ProductSkeleton.jsx"; // 👈 Import the skeleton
 import "../styles/Shop.css";
 import toast from "react-hot-toast";
-import { useLocation,useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const location = useLocation();
@@ -26,8 +25,6 @@ const Shop = () => {
   }, [location, navigate]);
 
   console.log("Shop loaded. Location state:", location.state);
-
-
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -147,7 +144,9 @@ const Shop = () => {
         {/* Sidebar - Hidden on mobile, visible on lg and above */}
         <div className="hidden lg:block lg:w-1/4 w-full lg:pr-8 mb-8 lg:mb-0">
           <div className="bg-white p-6 rounded shadow-md">
-            <h2 className="text-lg text-[#333333] font-semibold mb-4">CATEGORIES</h2>
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">
+              CATEGORIES
+            </h2>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
@@ -160,7 +159,9 @@ const Shop = () => {
               ))}
             </select>
 
-            <h2 className="text-lg text-[#333333] font-semibold mb-4">AVAILABILITY</h2>
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">
+              AVAILABILITY
+            </h2>
             <div className="space-y-2 mb-6">
               <label className="flex items-center">
                 <input
@@ -200,7 +201,9 @@ const Shop = () => {
               </p>
             </div>
 
-            <h2 className="text-lg text-[#333333] font-semibold mb-4">PRODUCT TYPE</h2>
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">
+              PRODUCT TYPE
+            </h2>
             <div className="space-y-2 mb-6">
               <label className="flex items-center">
                 <input
@@ -222,7 +225,9 @@ const Shop = () => {
               </label>
             </div>
 
-            <h2 className="text-lg text-[#333333] font-semibold mb-4">POPULAR PRODUCT COLLECTION</h2>
+            <h2 className="text-lg text-[#333333] font-semibold mb-4">
+              POPULAR PRODUCT COLLECTION
+            </h2>
             <p className="text-[#333333] text-sm mb-2">
               Please select collection from store
             </p>
